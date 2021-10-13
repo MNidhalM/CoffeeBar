@@ -12,7 +12,6 @@ enum Section {case main}
 
 // MARK:  BaseViewControllerProtocol
 protocol BaseViewControllerProtocol {
-    func setupTableView()
     func setupObservers()
     func registerCells()
     func setupUI()

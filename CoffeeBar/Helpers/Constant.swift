@@ -21,4 +21,6 @@ enum Constants : String {
     case extra_subtitle = "Select your extra’s"
     case overview_subtitle = "Overview"
     case audio_speech = "Enjoy your coffee time"
+    case sugar = "Sugar"
+    case milk = "Milk"
 }

@@ -32,9 +32,9 @@ class ExtraCoffee: Item {
         case "Select type of milk":
             return ImageAssets.milk
         case "Select the amount of sugar":
-            return ImageAssets.smallLungo
+            return ImageAssets.sugarCube
         default:
-            return ImageAssets.smallLungo
+            return ImageAssets.mediumLungo
         }
     }
 }

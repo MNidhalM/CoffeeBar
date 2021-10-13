@@ -53,7 +53,7 @@ class OverviewController: UIViewController {
 // MARK: - Helpers
 extension OverviewController : BaseViewControllerProtocol {
     func setupUI() {
-        headerView.configureView(mode: .size)
+        headerView.configureView(mode: .overview)
         
         headerView.backButtonDidTappedCallback = { [weak self] in
             guard let self = self else { return }
@@ -63,7 +63,6 @@ extension OverviewController : BaseViewControllerProtocol {
     }
     
     func setupTableView() {
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
     }
@@ -72,7 +71,7 @@ extension OverviewController : BaseViewControllerProtocol {
         viewModel.itemsDiffableDataSource = OverviewTableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, object in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OverviewCell.reuseIdentifier, for: indexPath) as? OverviewCell else {return UITableViewCell()}
             
-            cell.setupCell(item: object, limits: (first: (indexPath.row == 0), last: (indexPath.row == (self.viewModel.dataArray.count - 1))))
+            cell.setupCell(delegate: self, item: object, limits: (first: (indexPath.row == 0), last: (indexPath.row == (self.viewModel.dataArray.count - 1))))
             return cell
         })
     }
@@ -103,8 +102,38 @@ extension OverviewController {
         view.addSubview(animationView)
         animationView.play { [weak self] isTrue in
             guard let self = self else { return}
+            self.viewModel.removeCancellables()
             self.navigationController?.setViewControllers([TypeViewController.instantiateFromStoryboard(mainStoryboard)], animated: true)
         }
     }
     
+}
+
+// MARK: - OverViewCellDelegate
+extension OverviewController: OverViewCellDelegate {
+    func navigateTo(_ step: Step) {
+        viewModel.removeCancellables()
+        switch step {
+        
+        case .type:
+            SessionManager.sharedInstance.cleanSession()
+            let viewControllers: [UIViewController] = navigationController!.viewControllers
+            for aViewController in viewControllers {
+                if aViewController is TypeViewController {
+                    navigationController!.popToViewController(aViewController, animated: true)
+                }
+            }
+            
+        case .size:
+            let viewControllers: [UIViewController] = navigationController!.viewControllers
+            for aViewController in viewControllers {
+                if aViewController is SizeViewController {
+                    navigationController!.popToViewController(aViewController, animated: true)
+                }
+            }
+            
+        case .extra:
+            navigationController?.popViewController(animated: true)
+        }
+    }
 }

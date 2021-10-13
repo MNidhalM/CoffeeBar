@@ -16,9 +16,12 @@ class ScanViewController: UIViewController {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var headerView: HeaderView!
+    @IBAction func helpButtonTapped(_ sender: Any) {
+        ToastHelper.showToast(failure: false, message: Constants.user_test_message.rawValue, droppedUp: true)
+    }
     
     // MARK: - Proprieties
-    public var viewModel : ScanViewModel!
+    public var viewModel : ScanViewModelType!
     private var session: NFCNDEFReaderSession?
     private var nfcSession: NFCNDEFReaderSession?
     
@@ -30,13 +33,13 @@ class ScanViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupObservers()
+        showToat()
     }
     
     required init?(coder: NSCoder) {
         viewModel = ScanViewModel(observer: coffeeMachineId)
         super.init(coder: coder)
     }
-    
     
     deinit {
         cancellables.removeAll()
@@ -64,11 +67,14 @@ extension ScanViewController {
         questionLabel.underline()
     }
     
-    private func setupObservers() {
+    /// implement this toast to inform user how he can start with a fake machineID
+    private func showToat() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             ToastHelper.showToast(failure: false, message: Constants.user_test_message.rawValue, droppedUp: true)
         }
-        
+    }
+    
+    private func setupObservers() {
         // observe data from coffees
         viewModel.coffees
             .receive(on: RunLoop.main)

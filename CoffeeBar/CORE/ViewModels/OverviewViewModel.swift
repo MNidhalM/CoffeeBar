@@ -8,16 +8,23 @@
 import UIKit
 import Combine
 
+protocol OverviewViewModelType {
+    func applyDataSource()
+    func removeCancellables()
+    var itemsDiffableDataSource: OverviewTableViewDiffableDataSource? {get set}
+    var itemsSnapshot : NSDiffableDataSourceSnapshot<Section, OverviewCoffee> {get set}
+
+}
 // MARK: - OverviewTableViewDiffableDataSource
 class OverviewTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, OverviewCoffee> {}
 
 // MARK: - OverviewViewModel
-class OverviewViewModel {
+class OverviewViewModel: OverviewViewModelType {
     
     // MARK: - Proprieties
     //DiffableDataSource
     var itemsDiffableDataSource: OverviewTableViewDiffableDataSource?
-    private(set) var itemsSnapshot = NSDiffableDataSourceSnapshot<Section, OverviewCoffee>()
+    var itemsSnapshot = NSDiffableDataSourceSnapshot<Section, OverviewCoffee>()
     private var cancellables: Set<AnyCancellable> = []
     let dataArray : [OverviewCoffee] = OverviewCoffee().array
     
@@ -38,7 +45,7 @@ class OverviewViewModel {
 
 // MARK: - Helpers
 extension OverviewViewModel {
-    public func applyDataSource() {
+    func applyDataSource() {
         guard let itemsDiffableDataSource = itemsDiffableDataSource else { return }
         itemsDiffableDataSource.apply(itemsSnapshot, animatingDifferences: true)
     }

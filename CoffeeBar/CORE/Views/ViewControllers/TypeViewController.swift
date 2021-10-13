@@ -19,12 +19,11 @@ class TypeViewController: UIViewController {
     public var viewModel = TypeViewModel()
     private var cancellables: Set<AnyCancellable> = []
     @Published var animate = false
-
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupTableView()
         registerCells()
         setupObservers()
     }
@@ -33,7 +32,7 @@ class TypeViewController: UIViewController {
         super.viewWillAppear(true)
         viewModel.applyDataSource()
     }
-
+    
     deinit {
         cancellables.removeAll()
     }
@@ -45,23 +44,17 @@ extension TypeViewController : BaseViewControllerProtocol {
         headerView.configureView(mode: .type)
     }
     
-    // MARK: Configure table view
-    func setupTableView() {
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-    }
-
     // MARK: Cell registration
     func registerCells() {
         let itemCell = UINib(nibName: CoffeeTableViewCell.reuseIdentifier, bundle: nil)
         tableView.register(itemCell, forCellReuseIdentifier: CoffeeTableViewCell.reuseIdentifier)
     }
-
+    
     func setupObservers() {
         viewModel.itemsDiffableDataSource = TypeTableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, object in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CoffeeTableViewCell.reuseIdentifier, for: indexPath) as? CoffeeTableViewCell else {return UITableViewCell()}
             
-            cell.setupCell(item: object)
+            cell.setupCell(item: object, size: .large)
             return cell
         })
     }
@@ -70,12 +63,9 @@ extension TypeViewController : BaseViewControllerProtocol {
 // MARK: - UITableViewDelegate
 extension TypeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.item < viewModel.itemsSnapshot.numberOfItems else { return }
-        let selectedItem = viewModel.itemsSnapshot.itemIdentifiers[indexPath.item]
-        let sizeViewController = SizeViewController.instantiateFromStoryboard(mainStoryboard)
-        SessionManager.sharedInstance.typeCoffeeSelected = selectedItem
-        sizeViewController.viewModel = SizeViewModel()
-        navigationController?.pushViewController(sizeViewController, animated: true)
-
+        if viewModel.canSelectObject(index: indexPath.item) {
+            let sizeViewController = SizeViewController.instantiateFromStoryboard(mainStoryboard)
+            navigationController?.pushViewController(sizeViewController, animated: true)
+        }
     }
 }

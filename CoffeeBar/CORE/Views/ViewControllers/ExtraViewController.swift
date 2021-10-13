@@ -29,7 +29,7 @@ class ExtraViewController: UIViewController {
     }
     
     // MARK: - Proprieties
-    public var viewModel : ExtraViewModel!
+    public var viewModel = ExtraViewModel()
     private var cancellables: Set<AnyCancellable> = []
     // animate reloadtable one time
     private var shouldAnimate : Bool = true
@@ -42,7 +42,11 @@ class ExtraViewController: UIViewController {
         setupUI()
         setupTableView()
     }
-    
+        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
     deinit {
         cancellables.removeAll()
     }
@@ -56,6 +60,7 @@ extension ExtraViewController: BaseViewControllerProtocol {
             guard let self = self else { return }
             self.navigationController?.popViewController(animated: true)
         }
+        
     }
 
     func setupTableView(){
@@ -90,17 +95,12 @@ extension ExtraViewController {
 // MARK: - UITableViewDataSource
 extension ExtraViewController: UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        guard let viewModel = viewModel else {
-            return 0
-        }
-        return viewModel.allExtras.count
+        return viewModel.dataCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let viewModel = viewModel,
-            !viewModel.allExtras.isEmpty,
-            indexPath.row < viewModel.allExtras.count,
+            viewModel.isDataExistAndValid(index: indexPath.row),
             let cell = tableView.dequeueReusableCell(withIdentifier: ExtraCell.reuseIdentifier, for: indexPath) as? ExtraCell
         else { return UITableViewCell() }
         cell.updateCell(viewModel.allExtras[indexPath.row], self, animate: shouldAnimate)
@@ -114,7 +114,6 @@ extension ExtraViewController: ExtraControllerDelegate {
     var subTableView: UITableView { tableView }
         
     func updateExtraState(_ extraId: String?, _ subExtraId: String?, isSelected: Bool) {
-        guard let viewModel = viewModel else {return}
         viewModel.updateFromSubExtra(extraId, subExtraId, isSelected: isSelected)
     }
 }

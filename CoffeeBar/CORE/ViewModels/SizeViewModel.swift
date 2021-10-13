@@ -8,24 +8,31 @@
 import UIKit
 import Combine
 
+protocol SizeViewModelType {
+    func applyDataSource()
+    func canSelectObject(index: Int) -> Bool
+    var itemsDiffableDataSource: SizeTableViewDiffableDataSource? {get set}
+    var itemsSnapshot : NSDiffableDataSourceSnapshot<Section, SizeCoffee> {get set}
+}
+
 // MARK: - SizeTableViewDiffableDataSource
 class SizeTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SizeCoffee> {}
 
 // MARK: - SizeViewModel
-class SizeViewModel {
+class SizeViewModel: SizeViewModelType {
     
     // MARK: - Proprieties
     // DiffableDataSource
     var itemsDiffableDataSource: SizeTableViewDiffableDataSource?
-    private(set) var itemsSnapshot = NSDiffableDataSourceSnapshot<Section, SizeCoffee>()
+    var itemsSnapshot = NSDiffableDataSourceSnapshot<Section, SizeCoffee>()
     private var cancellables: Set<AnyCancellable> = []
     let dataArray : [SizeCoffee]?
     
     init() {
         guard let sizeCoffeeArray = SessionManager.sharedInstance.sizeCoffeeArray else { dataArray = nil; return}
-        dataArray = sizeCoffeeArray
+        dataArray = sizeCoffeeArray.sorted { $0.size.rawValue < $1.size.rawValue}
         itemsSnapshot.appendSections([.main])
-        itemsSnapshot.appendItems(sizeCoffeeArray, toSection: .main)
+        itemsSnapshot.appendItems(dataArray!, toSection: .main)
         applyDataSource()
     }
 
@@ -41,8 +48,16 @@ class SizeViewModel {
 
 // MARK: - Helpers
 extension SizeViewModel {
-    public func applyDataSource() {
+
+    func applyDataSource() {
         guard let itemsDiffableDataSource = itemsDiffableDataSource else { return }
         itemsDiffableDataSource.apply(itemsSnapshot, animatingDifferences: true)
+    }
+
+    func canSelectObject(index: Int) -> Bool {
+        guard index < itemsSnapshot.numberOfItems else { return false}
+        let selectedItem = itemsSnapshot.itemIdentifiers[index]
+        SessionManager.sharedInstance.sizeCoffeeSelected = selectedItem
+        return true
     }
 }
