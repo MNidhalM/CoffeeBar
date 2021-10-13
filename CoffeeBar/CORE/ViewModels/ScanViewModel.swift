@@ -8,11 +8,15 @@
 import Foundation
 import Combine
 
+protocol ScanViewModelType {
+    var coffees : PassthroughSubject<[TypeCoffee], Never> {get set}
+}
+
 // MARK: - ScanViewModel
-class ScanViewModel {
+class ScanViewModel: ScanViewModelType {
     
     // MARK: - Proprieties
-    let coffees = PassthroughSubject<[TypeCoffee], Never>()
+    var coffees = PassthroughSubject<[TypeCoffee], Never>()
     private let serviceManager = CoffeeServiceManager.sharedService
     private var cancellables: Set<AnyCancellable> = []
     

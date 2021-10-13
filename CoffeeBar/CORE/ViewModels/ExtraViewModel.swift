@@ -8,8 +8,24 @@
 import Foundation
 import UIKit
 
+protocol ExtraViewModelType {
+    var dataCount : Int  {get}
+    func isDataExistAndValid(index: Int) -> Bool
+    func updateFromSubExtra(_ extraId: String?, _ subExtraId: String?, isSelected: Bool)
+}
+
 // MARK: - ExtraViewModel
-class ExtraViewModel {
+class ExtraViewModel: ExtraViewModelType {
+    func isDataExistAndValid(index: Int) -> Bool {
+        guard !allExtras.isEmpty,
+              index < allExtras.count else {return false}
+        return true
+    }
+    
+    var dataCount: Int {
+        return allExtras.count
+    }
+    
     
     // MARK: - Proprieties
     var allExtras = [ExtraCoffee]()

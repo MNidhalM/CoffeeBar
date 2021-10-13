@@ -7,6 +7,13 @@
 
 import UIKit
 
+// MARK: - TypeCoffeeCases
+enum TypeCoffeeCases {
+    case ristretto
+    case espresso
+    case cappuccino
+    case others
+}
 
 // MARK: - TypeCoffee
 struct TypeCoffee: Item {
@@ -14,6 +21,19 @@ struct TypeCoffee: Item {
     var sizes: [SizeCoffee]?
     var extras: [ExtraCoffee]?
     var isSelected : Bool = false
+    
+    var typeCoffeeCase : TypeCoffeeCases {
+        switch name {
+        case .some("Ristretto"):
+            return  .ristretto
+        case .some("Espresso"):
+            return  .espresso
+        case .some("Cappuccino"):
+            return  .cappuccino
+        case .none, .some(_):
+            return .others
+        }
+    }
     
     var image : UIImage? {
         switch name {
@@ -24,14 +44,14 @@ struct TypeCoffee: Item {
         case "Lungo":
             return ImageAssets.lungo
         default:
-            return ImageAssets.smallLungo
+            return ImageAssets.largeLungo
         }
     }
     
     init(from responseModel: TypeCoffeeResponse,sizesIds:[SizeCoffeeResponse],extrasIds:[ExtraoffeeResponse]) {
         self.id = responseModel.id
         self.name = responseModel.name
-        self.sizes = collectDataSize(ids: responseModel.sizes, objectArray: sizesIds)
+        self.sizes = collectDataSize(ids: responseModel.sizes, objectArray: sizesIds, typeCoffeeCase: typeCoffeeCase)
         self.extras = collectDataExtra(ids: responseModel.extras, objectArray: extrasIds)
     }
 }
@@ -49,12 +69,12 @@ extension TypeCoffee : Hashable {
 
 // MARK: - Helpers
 extension TypeCoffee {
-    private func collectDataSize(ids: [String]?,objectArray:[SizeCoffeeResponse]) -> [SizeCoffee] {
+    private func collectDataSize(ids: [String]?,objectArray:[SizeCoffeeResponse],typeCoffeeCase : TypeCoffeeCases) -> [SizeCoffee] {
         objectArray.filter { item in
             guard let id = item.id else { return false}
             return ids?.contains(id) ?? false
         }.compactMap { item in
-            return SizeCoffee(id: item.id, name: item.name)
+            return SizeCoffee(id: item.id, name: item.name, typeCoffeeCase: typeCoffeeCase)
         }
     }
     

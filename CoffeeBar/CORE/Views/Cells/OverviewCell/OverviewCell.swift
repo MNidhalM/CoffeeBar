@@ -7,6 +7,11 @@
 
 import UIKit
 
+// MARK: - OverViewCellDelegate
+protocol OverViewCellDelegate : AnyObject{
+    func navigateTo(_ step: Step)
+}
+
 // MARK: - OverviewCell
 class OverviewCell: UITableViewCell {
     
@@ -19,15 +24,25 @@ class OverviewCell: UITableViewCell {
     @IBOutlet weak var subItemStackView: UIStackView!
     @IBOutlet weak var subItemLabel: UILabel!
     @IBOutlet weak var selectedView: UIView!
-    
+    @IBAction func editButtonTapped(_ sender: Any) {
+        guard
+            let destination = model.step,
+            let delegate = delegate else { return }
+        delegate.navigateTo(destination)
+    }
+
+    public weak var delegate : OverViewCellDelegate?
+    var model = OverviewCoffee()
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 }
 
 extension OverviewCell {
-    public func setupCell(item: OverviewCoffee,limits:(first:Bool,last :Bool)) {
+    public func setupCell(delegate: OverViewCellDelegate?,item: OverviewCoffee,limits:(first:Bool,last :Bool)) {
+        self.delegate = delegate
+        self.model = item
         if limits.first{
             // add top corner to the first cell
             containerView.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]

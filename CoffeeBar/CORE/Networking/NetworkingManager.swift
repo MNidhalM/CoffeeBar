@@ -58,7 +58,7 @@ extension NetworkingManager {
 
     }
 }
-
+// MARK: - HttpMethod
 enum HttpMethod: String {
     case options = "OPTIONS"
     case get     = "GET"

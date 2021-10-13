@@ -7,23 +7,46 @@
 
 import UIKit
 
+// MARK: - Sizes
+
+enum Sizes: Int {
+    case small
+    case medium
+    case large
+}
+
 // MARK: - SizeCoffee
 struct SizeCoffee: Item {
     var id, name: String?
     var isSelected : Bool = false
+    var typeCoffeeCase : TypeCoffeeCases
     
-    var image : UIImage? {
+    var size: Sizes {
         switch name {
         case "Large":
-            return ImageAssets.largeLungo
-        case "Medium":
-            return ImageAssets.mediumLungo
-        case "Small":
-            return ImageAssets.smallLungo
+            return .large
+        case "Medium", "Venti":
+            return .medium
+        case "Small", "Tall":
+            return .small
         default:
-            return ImageAssets.smallLungo
+            return .large
         }
     }
+    
+    var image : UIImage? {
+        switch typeCoffeeCase {
+        case .ristretto:
+            return ImageAssets.largeLungo
+        case .cappuccino:
+            return ImageAssets.cappuchino
+        case .espresso:
+            return ImageAssets.espresso
+        default:
+            return ImageAssets.largeLungo
+        }
+    }
+    
 }
 
 // MARK: - Hashable

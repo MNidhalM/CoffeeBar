@@ -19,26 +19,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24L-d6-mNi" customClass="HeaderView" customModule="CoffeeBar" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="87"/>
+                                <rect key="frame" x="0.0" y="43.999999999999993" width="375" height="97.333333333333314"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="4Vy-nw-JFb">
-                                <rect key="frame" x="0.0" y="212.99999999999997" width="375" height="464.33333333333326"/>
+                                <rect key="frame" x="0.0" y="223.33333333333334" width="375" height="504.33333333333326"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="uNx-N9-5vF">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="410"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How does this work" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J36-Nu-G3g">
-                                        <rect key="frame" x="24" y="445" width="327" height="19.333333333333314"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VX8-iP-0qv">
+                                        <rect key="frame" x="24" y="445" width="327" height="59.333333333333314"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How does this work" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J36-Nu-G3g">
+                                                <rect key="frame" x="0.0" y="0.0" width="142" height="59.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNt-UF-oAP">
+                                                <rect key="frame" x="0.0" y="0.0" width="142" height="59.333333333333336"/>
+                                                <connections>
+                                                    <action selector="helpButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1qq-SX-ZLY"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="mNt-UF-oAP" firstAttribute="trailing" secondItem="J36-Nu-G3g" secondAttribute="trailing" id="3zy-cy-Hga"/>
+                                            <constraint firstItem="J36-Nu-G3g" firstAttribute="top" secondItem="VX8-iP-0qv" secondAttribute="top" id="5ke-vo-IJG"/>
+                                            <constraint firstItem="mNt-UF-oAP" firstAttribute="top" secondItem="J36-Nu-G3g" secondAttribute="top" id="M6b-PG-V0b"/>
+                                            <constraint firstItem="mNt-UF-oAP" firstAttribute="leading" secondItem="J36-Nu-G3g" secondAttribute="leading" id="UQL-Mc-1Q8"/>
+                                            <constraint firstAttribute="bottom" secondItem="J36-Nu-G3g" secondAttribute="bottom" id="bOa-ar-7oT"/>
+                                            <constraint firstItem="J36-Nu-G3g" firstAttribute="leading" secondItem="VX8-iP-0qv" secondAttribute="leading" id="g4c-v2-vYZ"/>
+                                            <constraint firstItem="mNt-UF-oAP" firstAttribute="bottom" secondItem="J36-Nu-G3g" secondAttribute="bottom" id="zHY-Ai-Gsw"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="J36-Nu-G3g" firstAttribute="leading" secondItem="4Vy-nw-JFb" secondAttribute="leading" constant="24" id="IcE-eH-Vwb"/>
-                                    <constraint firstAttribute="trailing" secondItem="J36-Nu-G3g" secondAttribute="trailing" constant="24" id="KPL-H5-AbW"/>
                                     <constraint firstAttribute="trailing" secondItem="uNx-N9-5vF" secondAttribute="trailing" id="W5P-Hm-Oqq"/>
+                                    <constraint firstItem="VX8-iP-0qv" firstAttribute="leading" secondItem="4Vy-nw-JFb" secondAttribute="leading" constant="24" id="Xry-nS-TPx"/>
+                                    <constraint firstAttribute="trailing" secondItem="VX8-iP-0qv" secondAttribute="trailing" constant="24" id="bdZ-y4-21K"/>
                                     <constraint firstItem="uNx-N9-5vF" firstAttribute="leading" secondItem="4Vy-nw-JFb" secondAttribute="leading" id="ej9-lJ-FCa"/>
                                 </constraints>
                             </stackView>
@@ -50,7 +71,7 @@
                             <constraint firstItem="24L-d6-mNi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8Wj-Zq-q4J"/>
                             <constraint firstItem="24L-d6-mNi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CEa-pQ-QU7"/>
                             <constraint firstItem="4Vy-nw-JFb" firstAttribute="top" secondItem="24L-d6-mNi" secondAttribute="bottom" constant="82" id="TTq-xw-h5R"/>
-                            <constraint firstItem="24L-d6-mNi" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.107143" id="eIX-dZ-MRJ"/>
+                            <constraint firstItem="24L-d6-mNi" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.12" id="eIX-dZ-MRJ"/>
                             <constraint firstItem="4Vy-nw-JFb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="f4w-Pu-C0d"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="24L-d6-mNi" secondAttribute="trailing" id="fVx-jb-ADw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4Vy-nw-JFb" secondAttribute="trailing" id="trE-vP-sdJ"/>
@@ -75,11 +96,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBY-xI-Qau" customClass="HeaderView" customModule="CoffeeBar" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="87"/>
+                                <rect key="frame" x="0.0" y="43.999999999999993" width="375" height="97.333333333333314"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FGk-QA-MU3">
-                                <rect key="frame" x="0.0" y="141" width="375" height="637"/>
+                                <rect key="frame" x="0.0" y="151.33333333333331" width="375" height="626.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="delegate" destination="OF3-hJ-Blk" id="NG3-ii-73e"/>
@@ -89,7 +110,7 @@
                         <viewLayoutGuide key="safeArea" id="PdI-MG-mKl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LBY-xI-Qau" firstAttribute="height" secondItem="pqJ-KM-p1k" secondAttribute="height" multiplier="0.107143" id="1PI-Lu-W5P"/>
+                            <constraint firstItem="LBY-xI-Qau" firstAttribute="height" secondItem="pqJ-KM-p1k" secondAttribute="height" multiplier="0.12" id="1PI-Lu-W5P"/>
                             <constraint firstItem="LBY-xI-Qau" firstAttribute="top" secondItem="PdI-MG-mKl" secondAttribute="top" id="5PD-Ko-v71"/>
                             <constraint firstItem="LBY-xI-Qau" firstAttribute="leading" secondItem="PdI-MG-mKl" secondAttribute="leading" id="JH7-Tf-brv"/>
                             <constraint firstItem="PdI-MG-mKl" firstAttribute="trailing" secondItem="FGk-QA-MU3" secondAttribute="trailing" id="L5f-o0-qko"/>
@@ -117,11 +138,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ky-IA-llv" customClass="HeaderView" customModule="CoffeeBar" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="87"/>
+                                <rect key="frame" x="0.0" y="43.999999999999993" width="375" height="97.333333333333314"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RoH-Yb-EzV">
-                                <rect key="frame" x="0.0" y="141" width="375" height="637"/>
+                                <rect key="frame" x="0.0" y="151.33333333333331" width="375" height="626.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="delegate" destination="JyN-Mb-TkA" id="Bwh-su-UQS"/>
@@ -137,7 +158,7 @@
                             <constraint firstItem="3Ky-IA-llv" firstAttribute="leading" secondItem="gxa-wL-uZT" secondAttribute="leading" id="VY0-Q2-WeD"/>
                             <constraint firstItem="gxa-wL-uZT" firstAttribute="trailing" secondItem="3Ky-IA-llv" secondAttribute="trailing" id="cqS-X8-LMv"/>
                             <constraint firstItem="gxa-wL-uZT" firstAttribute="bottom" secondItem="RoH-Yb-EzV" secondAttribute="bottom" id="rO2-BR-FGx"/>
-                            <constraint firstItem="3Ky-IA-llv" firstAttribute="height" secondItem="e3n-A0-o3Q" secondAttribute="height" multiplier="0.107143" id="wd5-Ng-l7m"/>
+                            <constraint firstItem="3Ky-IA-llv" firstAttribute="height" secondItem="e3n-A0-o3Q" secondAttribute="height" multiplier="0.12" id="wd5-Ng-l7m"/>
                             <constraint firstItem="gxa-wL-uZT" firstAttribute="trailing" secondItem="RoH-Yb-EzV" secondAttribute="trailing" id="wh9-FO-diy"/>
                         </constraints>
                     </view>
@@ -159,11 +180,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8l-uK-0eE" customClass="HeaderView" customModule="CoffeeBar" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="87"/>
+                                <rect key="frame" x="0.0" y="43.999999999999993" width="375" height="97.333333333333314"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xHP-i5-Vxg">
-                                <rect key="frame" x="0.0" y="141" width="375" height="637"/>
+                                <rect key="frame" x="0.0" y="151.33333333333331" width="375" height="626.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Dlp-OE-G0T" id="PZa-aa-fJ7"/>
@@ -227,7 +248,7 @@
                             <constraint firstItem="uCd-ay-vIU" firstAttribute="trailing" secondItem="xHP-i5-Vxg" secondAttribute="trailing" id="gOy-7j-cvA"/>
                             <constraint firstItem="uCd-ay-vIU" firstAttribute="bottom" secondItem="xHP-i5-Vxg" secondAttribute="bottom" id="hbz-uX-a4B"/>
                             <constraint firstItem="xHP-i5-Vxg" firstAttribute="leading" secondItem="uCd-ay-vIU" secondAttribute="leading" id="per-m5-jld"/>
-                            <constraint firstItem="w8l-uK-0eE" firstAttribute="height" secondItem="NT8-cW-9bY" secondAttribute="height" multiplier="0.107143" id="tKw-7Y-bTO"/>
+                            <constraint firstItem="w8l-uK-0eE" firstAttribute="height" secondItem="NT8-cW-9bY" secondAttribute="height" multiplier="0.12" id="tKw-7Y-bTO"/>
                             <constraint firstItem="M5b-dV-w9i" firstAttribute="trailing" secondItem="uCd-ay-vIU" secondAttribute="trailing" id="zjM-M5-d8c"/>
                         </constraints>
                     </view>

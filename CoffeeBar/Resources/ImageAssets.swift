@@ -16,4 +16,5 @@ struct ImageAssets {
     static let mediumLungo = UIImage(named: "medium_lungo")
     static let milk = UIImage(named: "milk")
     static let smallLungo = UIImage(named: "small_lungo")
+    static let sugarCube = UIImage(named: "sugar_icon")
 }

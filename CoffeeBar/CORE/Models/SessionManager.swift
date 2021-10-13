@@ -28,20 +28,16 @@ class SessionManager {
     func cleanExtras(extras: [ExtraCoffee]?) {
         extras?.forEach {
             $0.isSelected = false
-                $0.subselections?.forEach {
-                    $0.isSelected = false
-                }
+            $0.subselections?.forEach {
+                $0.isSelected = false
+            }
         }
     }
-
+    
     /// clean the selected items
     public func cleanSession() {
         typeCoffeeSelected = nil
-        extraCoffeArray?.forEach {
-            $0.isSelected = false
-                $0.subselections?.forEach {
-                    $0.isSelected = false
-                }
-        }
+        sizeCoffeeSelected = nil
+        cleanExtras(extras: extraCoffeArray)
     }
 }

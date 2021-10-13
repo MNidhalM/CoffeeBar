@@ -25,9 +25,9 @@ extension SubExtraCoffee {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-
+    
     public static func == (lhs: SubExtraCoffee, rhs: SubExtraCoffee) -> Bool {
         return lhs.id == rhs.id
     }
-
+    
 }
