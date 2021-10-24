@@ -20,7 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func setupWindow() {
         window?.overrideUserInterfaceStyle = .light
-        let rootNavC = UINavigationController(rootViewController: ScanViewController.instantiateFromStoryboard(mainStoryboard))
+        let destination = ScanViewController.instantiateFromStoryboard(mainStoryboard)
+        let rootNavC = UINavigationController(rootViewController: destination)
+        destination.viewModel =  ScanViewModel(observer: destination.coffeeMachineId, service: CoffeeServiceAdapter(api: NetworkingManager.shared), sessionManager: Session.sharedInstance)
+    
+        destination.sessionManager = Session.sharedInstance
         rootNavC.isNavigationBarHidden = true
         window?.rootViewController = rootNavC
         window?.makeKeyAndVisible()

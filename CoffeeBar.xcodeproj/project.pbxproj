@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		953ED25D2716626000960224 /* BasicImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 953ED25C2716626000960224 /* BasicImage.xib */; };
 		953ED25F2716626A00960224 /* BasicImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953ED25E2716626A00960224 /* BasicImage.swift */; };
-		9543F5C027121ED500907CD3 /* CoffeeServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9543F5BF27121ED500907CD3 /* CoffeeServiceManager.swift */; };
+		9543F5C027121ED500907CD3 /* CoffeeServiceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9543F5BF27121ED500907CD3 /* CoffeeServiceAdapter.swift */; };
 		956C6B6E2710DDB2002F3E2A /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956C6B6D2710DDB2002F3E2A /* ExternalAccessory.framework */; };
 		956C6B732710F234002F3E2A /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 956C6B722710F234002F3E2A /* NVActivityIndicatorView */; };
 		956C6B752710F234002F3E2A /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = 956C6B742710F234002F3E2A /* NVActivityIndicatorViewExtended */; };
@@ -57,7 +57,7 @@
 		958639F8270FAC8A0018525F /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958639F7270FAC8A0018525F /* NetworkingManager.swift */; };
 		958639FA270FB4830018525F /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958639F9270FB4830018525F /* Toast.swift */; };
 		958639FC270FB5E90018525F /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958639FB270FB5E90018525F /* ScanViewModel.swift */; };
-		959394AB2713194300151EE3 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959394AA2713194300151EE3 /* SessionManager.swift */; };
+		959394AB2713194300151EE3 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959394AA2713194300151EE3 /* Session.swift */; };
 		95E6998727122790009FA89C /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E6998627122790009FA89C /* NetworkingError.swift */; };
 		95E6998927124521009FA89C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E6998827124521009FA89C /* Helpers.swift */; };
 		95E6998B27124540009FA89C /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E6998A27124540009FA89C /* AudioManager.swift */; };
@@ -70,7 +70,7 @@
 /* Begin PBXFileReference section */
 		953ED25C2716626000960224 /* BasicImage.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicImage.xib; sourceTree = "<group>"; };
 		953ED25E2716626A00960224 /* BasicImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicImage.swift; sourceTree = "<group>"; };
-		9543F5BF27121ED500907CD3 /* CoffeeServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeServiceManager.swift; sourceTree = "<group>"; };
+		9543F5BF27121ED500907CD3 /* CoffeeServiceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeServiceAdapter.swift; sourceTree = "<group>"; };
 		956C6B6D2710DDB2002F3E2A /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		956C6B7627110DC8002F3E2A /* NVActivityIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorManager.swift; sourceTree = "<group>"; };
 		957C2D8327138ABE00C3F7FE /* coffee.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = coffee.json; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 		958639F7270FAC8A0018525F /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		958639F9270FB4830018525F /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		958639FB270FB5E90018525F /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
-		959394AA2713194300151EE3 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		959394AA2713194300151EE3 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		95E6998627122790009FA89C /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		95E6998827124521009FA89C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		95E6998A27124540009FA89C /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 		9543F5C127121ED900907CD3 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				9543F5BF27121ED500907CD3 /* CoffeeServiceManager.swift */,
+				9543F5BF27121ED500907CD3 /* CoffeeServiceAdapter.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -242,7 +242,7 @@
 		958639BC270F7D300018525F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				959394AA2713194300151EE3 /* SessionManager.swift */,
+				959394AA2713194300151EE3 /* Session.swift */,
 				958639E7270FA0330018525F /* HeaderModel.swift */,
 				9583DB9A27121AA400C73C58 /* ItemProtocol.swift */,
 				958639BA270F7BCB0018525F /* TypeCoffee.swift */,
@@ -476,7 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9583DB99271218B200C73C58 /* ColorAssets.swift in Sources */,
-				9543F5C027121ED500907CD3 /* CoffeeServiceManager.swift in Sources */,
+				9543F5C027121ED500907CD3 /* CoffeeServiceAdapter.swift in Sources */,
 				95E6999527125C07009FA89C /* OverviewCoffee.swift in Sources */,
 				958639AB270F7BAF0018525F /* TypeViewController.swift in Sources */,
 				958639E4270F9FA20018525F /* Constant.swift in Sources */,
@@ -497,7 +497,7 @@
 				958639A7270F7BAF0018525F /* AppDelegate.swift in Sources */,
 				9583DB952711C6FF00C73C58 /* SubExtraCoffee.swift in Sources */,
 				958639D1270F8A570018525F /* SizeCoffee.swift in Sources */,
-				959394AB2713194300151EE3 /* SessionManager.swift in Sources */,
+				959394AB2713194300151EE3 /* Session.swift in Sources */,
 				9583DB9E27121AE500C73C58 /* ItemResponseProtocol.swift in Sources */,
 				953ED25F2716626A00960224 /* BasicImage.swift in Sources */,
 				958639D5270F8CC00018525F /* Extensions.swift in Sources */,

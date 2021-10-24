@@ -13,8 +13,8 @@ protocol OverviewViewModelType {
     func removeCancellables()
     var itemsDiffableDataSource: OverviewTableViewDiffableDataSource? {get set}
     var itemsSnapshot : NSDiffableDataSourceSnapshot<Section, OverviewCoffee> {get set}
-
 }
+
 // MARK: - OverviewTableViewDiffableDataSource
 class OverviewTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, OverviewCoffee> {}
 
@@ -26,11 +26,12 @@ class OverviewViewModel: OverviewViewModelType {
     var itemsDiffableDataSource: OverviewTableViewDiffableDataSource?
     var itemsSnapshot = NSDiffableDataSourceSnapshot<Section, OverviewCoffee>()
     private var cancellables: Set<AnyCancellable> = []
-    let dataArray : [OverviewCoffee] = OverviewCoffee().array
+    let dataArray : [OverviewCoffee]
     
-    init() {
+    init(dataArray : [OverviewCoffee]) {
         self.itemsSnapshot.appendSections([.main])
         self.itemsSnapshot.appendItems(dataArray, toSection: .main)
+        self.dataArray = dataArray
     }
     
     public func removeCancellables(){

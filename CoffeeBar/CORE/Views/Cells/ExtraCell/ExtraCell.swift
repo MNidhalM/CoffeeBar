@@ -89,12 +89,6 @@ extension ExtraCell: UITableViewDataSource, UITableViewDelegate {
         
         // start reloatable view after the change on the data
         reloadCellsfunc(tableView: tableView)
-//        UIView.transition(with: delegate.subTableView, duration: 0.15, options: .transitionCrossDissolve, animations: { [weak self] in
-//            tableView.reloadData()
-//            self?.delegate?.subTableView.reloadData()
-//        }, completion: { _ in
-//            tableView.layoutIfNeeded()
-//        })
     }
     
     func reloadCellsfunc (tableView: UITableView) {

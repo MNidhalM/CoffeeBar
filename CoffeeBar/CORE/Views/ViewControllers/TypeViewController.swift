@@ -16,8 +16,9 @@ class TypeViewController: UIViewController {
     @IBOutlet weak var headerView: HeaderView!
     
     // MARK: - Proprieties
-    public var viewModel = TypeViewModel()
+    public var viewModel : TypeViewModel!
     private var cancellables: Set<AnyCancellable> = []
+    var sessionManager : SessionManager!
     @Published var animate = false
     
     // MARK: - Life Cycle
@@ -64,8 +65,10 @@ extension TypeViewController : BaseViewControllerProtocol {
 extension TypeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if viewModel.canSelectObject(index: indexPath.item) {
-            let sizeViewController = SizeViewController.instantiateFromStoryboard(mainStoryboard)
-            navigationController?.pushViewController(sizeViewController, animated: true)
+            let destination = SizeViewController.instantiateFromStoryboard(mainStoryboard)
+            destination.viewModel = SizeViewModel(sizeCoffeeArray: sessionManager.sizeCoffeeArray, sessionManager: sessionManager)
+            destination.sessionManager = sessionManager
+            show(destination, sender: self)
         }
     }
 }

@@ -6,11 +6,21 @@
 //
 
 import Foundation
+protocol SessionManager {
+    var typeCoffeeArray: [TypeCoffee]? { get set }
+    var sizeCoffeeArray: [SizeCoffee]? { get set }
+    var extraCoffeArray: [ExtraCoffee]? { get set }
+    var typeCoffeeSelected: TypeCoffee? { get set }
+    var sizeCoffeeSelected: SizeCoffee? { get set }
+    var extraCoffeSelected: [ExtraCoffee]? { get set }
+    func cleanSession()
+}
 
-// MARK:  SessionManager
-class SessionManager {
-    static var sharedInstance = SessionManager()
-    
+// MARK:  Session
+class Session :  SessionManager {
+    static var sharedInstance = Session()
+    private init (){
+    }
     var typeCoffeeSelected: TypeCoffee?{
         didSet {
             cleanExtras(extras: typeCoffeeSelected?.extras)
@@ -35,7 +45,7 @@ class SessionManager {
     }
     
     /// clean the selected items
-    public func cleanSession() {
+    func cleanSession() {
         typeCoffeeSelected = nil
         sizeCoffeeSelected = nil
         cleanExtras(extras: extraCoffeArray)

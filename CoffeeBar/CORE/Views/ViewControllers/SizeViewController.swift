@@ -16,8 +16,9 @@ class SizeViewController: UIViewController {
     @IBOutlet weak var headerView: HeaderView!
     
     // MARK: - Proprieties
-    public var viewModel = SizeViewModel()
+    public var viewModel : SizeViewModel!
     private var cancellables: Set<AnyCancellable> = []
+    var sessionManager : SessionManager!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -43,7 +44,7 @@ extension SizeViewController : BaseViewControllerProtocol {
         headerView.configureView(mode: .size)
         headerView.backButtonDidTappedCallback = { [weak self] in
             guard let self = self else { return }
-            SessionManager.sharedInstance.cleanSession()
+            self.sessionManager.cleanSession()
             self.viewModel.removeCancellables()
             self.navigationController?.popViewController(animated: true)
         }
@@ -68,8 +69,9 @@ extension SizeViewController : BaseViewControllerProtocol {
 extension SizeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if viewModel.canSelectObject(index: indexPath.item) {
-            let extraViewController = ExtraViewController.instantiateFromStoryboard(mainStoryboard)
-            navigationController?.pushViewController(extraViewController, animated: true)
+            let destination = ExtraViewController.instantiateFromStoryboard(mainStoryboard)
+            destination.viewModel = ExtraViewModel(extraCoffeArray: sessionManager.extraCoffeArray, sessionManager: sessionManager)
+            show(destination, sender: self)
         }
     }
 }
