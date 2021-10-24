@@ -23,9 +23,9 @@ struct OverviewCoffee {
     var array = [OverviewCoffee]()
     
     init() {
-        guard let type = SessionManager.sharedInstance.typeCoffeeSelected,
-              let size = SessionManager.sharedInstance.sizeCoffeeSelected,
-              let extras = SessionManager.sharedInstance.extraCoffeSelected else {
+        guard let type = Session.sharedInstance.typeCoffeeSelected,
+              let size = Session.sharedInstance.sizeCoffeeSelected,
+              let extras = Session.sharedInstance.extraCoffeSelected else {
             return
         }
         array.append(OverviewCoffee(from: type, step: .type))

@@ -17,10 +17,13 @@ class ScanViewModel: ScanViewModelType {
     
     // MARK: - Proprieties
     var coffees = PassthroughSubject<[TypeCoffee], Never>()
-    private let serviceManager = CoffeeServiceManager.sharedService
+    private var service : CoffeeService
+    var sessionManager : SessionManager
     private var cancellables: Set<AnyCancellable> = []
     
-    init(observer: PassthroughSubject<String, Never>) {
+    init(observer: PassthroughSubject<String, Never>, service: CoffeeService, sessionManager: SessionManager) {
+        self.service = service
+        self.sessionManager = sessionManager
         observer
             .receive(on: RunLoop.main)
             .sink { print($0) }
@@ -40,7 +43,7 @@ class ScanViewModel: ScanViewModelType {
 extension ScanViewModel {
     // Call serviceManager to get data related the machine id
     private func getCoffeeData(id :String) {
-        serviceManager.getCoffeeData(coffeeMachineId: id)
+        service.loadItems(coffeeMachineId: id)
             .receive(on: RunLoop.main)
             .sink { completed in
                 switch completed {
@@ -60,7 +63,7 @@ extension ScanViewModel {
                     return TypeCoffee(from: item, sizesIds: sizes, extrasIds: extras)
                 }
                 
-                SessionManager.sharedInstance.typeCoffeeArray = arrayTypes
+                self.sessionManager.typeCoffeeArray = arrayTypes
                 // send new value
                 self.coffees.send(arrayTypes)
             }

@@ -16,7 +16,7 @@ class OverviewController: UIViewController {
     @IBOutlet weak var tableView: ContentSizedTableView!
     
     @IBAction func finishButtonTapped(_ sender: Any) {
-        SessionManager.sharedInstance.cleanSession()
+        Session.sharedInstance.cleanSession()
         addBlurEffect()
         startAnimationCoffeeMchine()
         // start audio message
@@ -28,6 +28,7 @@ class OverviewController: UIViewController {
     // MARK: - Proprieties
     public var viewModel : OverviewViewModel!
     private var cancellables: Set<AnyCancellable> = []
+    var sessionManager : SessionManager!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -103,7 +104,10 @@ extension OverviewController {
         animationView.play { [weak self] isTrue in
             guard let self = self else { return}
             self.viewModel.removeCancellables()
-            self.navigationController?.setViewControllers([TypeViewController.instantiateFromStoryboard(mainStoryboard)], animated: true)
+            let vc = TypeViewController.instantiateFromStoryboard(mainStoryboard)
+            vc.sessionManager = self.sessionManager
+            vc.viewModel = TypeViewModel(typeCoffeeArray: self.sessionManager.typeCoffeeArray, sessionManager: self.sessionManager)
+            self.navigationController?.setViewControllers([vc], animated: true)
         }
     }
     
@@ -116,7 +120,7 @@ extension OverviewController: OverViewCellDelegate {
         switch step {
         
         case .type:
-            SessionManager.sharedInstance.cleanSession()
+            sessionManager.cleanSession()
             let viewControllers: [UIViewController] = navigationController!.viewControllers
             for aViewController in viewControllers {
                 if aViewController is TypeViewController {

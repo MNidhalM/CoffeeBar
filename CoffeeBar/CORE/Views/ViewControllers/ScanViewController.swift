@@ -25,8 +25,9 @@ class ScanViewController: UIViewController {
     private var session: NFCNDEFReaderSession?
     private var nfcSession: NFCNDEFReaderSession?
     
-    private let coffeeMachineId = PassthroughSubject<String, Never>()
+    public let coffeeMachineId = PassthroughSubject<String, Never>()
     private var cancellables: Set<AnyCancellable> = []
+    var sessionManager : SessionManager!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -34,11 +35,6 @@ class ScanViewController: UIViewController {
         setupUI()
         setupObservers()
         showToat()
-    }
-    
-    required init?(coder: NSCoder) {
-        viewModel = ScanViewModel(observer: coffeeMachineId)
-        super.init(coder: coder)
     }
     
     deinit {
@@ -116,7 +112,9 @@ extension ScanViewController : NFCNDEFReaderSessionDelegate {
 // MARK: - Navigation
 extension ScanViewController {
     private func showCoffeeTypeViewController(with coffees: [TypeCoffee]) {
-        let typeViewController = TypeViewController.instantiateFromStoryboard(mainStoryboard)
-        navigationController?.pushViewController(typeViewController, animated: true)
+        let destination = TypeViewController.instantiateFromStoryboard(mainStoryboard)
+        destination.viewModel = TypeViewModel(typeCoffeeArray: sessionManager.typeCoffeeArray, sessionManager: sessionManager)
+        destination.sessionManager = sessionManager
+        show(destination, sender: self)
     }
 }

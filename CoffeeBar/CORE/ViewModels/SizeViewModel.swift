@@ -27,20 +27,22 @@ class SizeViewModel: SizeViewModelType {
     var itemsSnapshot = NSDiffableDataSourceSnapshot<Section, SizeCoffee>()
     private var cancellables: Set<AnyCancellable> = []
     let dataArray : [SizeCoffee]?
+    var sessionManager : SessionManager
     
-    init() {
-        guard let sizeCoffeeArray = SessionManager.sharedInstance.sizeCoffeeArray else { dataArray = nil; return}
+    init(sizeCoffeeArray: [SizeCoffee]?, sessionManager: SessionManager) {
+        self.sessionManager = sessionManager
+        guard let sizeCoffeeArray = sizeCoffeeArray else { dataArray = nil; return}
         dataArray = sizeCoffeeArray.sorted { $0.size.rawValue < $1.size.rawValue}
         itemsSnapshot.appendSections([.main])
         itemsSnapshot.appendItems(dataArray!, toSection: .main)
         applyDataSource()
     }
-
+    
     public func removeCancellables(){
         itemsDiffableDataSource = nil
         cancellables.removeAll()
     }
-
+    
     deinit {
         removeCancellables()
     }
@@ -48,16 +50,16 @@ class SizeViewModel: SizeViewModelType {
 
 // MARK: - Helpers
 extension SizeViewModel {
-
+    
     func applyDataSource() {
         guard let itemsDiffableDataSource = itemsDiffableDataSource else { return }
         itemsDiffableDataSource.apply(itemsSnapshot, animatingDifferences: true)
     }
-
+    
     func canSelectObject(index: Int) -> Bool {
         guard index < itemsSnapshot.numberOfItems else { return false}
         let selectedItem = itemsSnapshot.itemIdentifiers[index]
-        SessionManager.sharedInstance.sizeCoffeeSelected = selectedItem
+        sessionManager.sizeCoffeeSelected = selectedItem
         return true
     }
 }

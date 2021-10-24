@@ -27,7 +27,10 @@ class TypeViewModel: TypeViewModelType {
     var itemsSnapshot = NSDiffableDataSourceSnapshot<Section, TypeCoffee>()
     private var cancellables: Set<AnyCancellable> = []
     let coffees = PassthroughSubject<[TypeCoffee], Never>()
-    init() {
+    var sessionManager : SessionManager
+    
+    init(typeCoffeeArray: [TypeCoffee]?, sessionManager : SessionManager) {
+        self.sessionManager = sessionManager
         self.coffees
             .receive(on: RunLoop.main)
             .sink { print($0) } receiveValue: { [weak self] items in
@@ -37,7 +40,7 @@ class TypeViewModel: TypeViewModelType {
                 self.applyDataSource()
             }
             .store(in: &cancellables)
-        guard let coffees = SessionManager.sharedInstance.typeCoffeeArray else { return }
+        guard let coffees = typeCoffeeArray else { return }
         self.coffees.send(coffees)
     }
     
@@ -57,11 +60,11 @@ extension TypeViewModel {
         guard let itemsDiffableDataSource = itemsDiffableDataSource else { return }
         itemsDiffableDataSource.apply(itemsSnapshot, animatingDifferences: true)
     }
-
+    
     func canSelectObject(index: Int) -> Bool {
         guard index < itemsSnapshot.numberOfItems else { return false}
         let selectedItem = itemsSnapshot.itemIdentifiers[index]
-        SessionManager.sharedInstance.typeCoffeeSelected = selectedItem
+        sessionManager.typeCoffeeSelected = selectedItem
         return true
     }
 }

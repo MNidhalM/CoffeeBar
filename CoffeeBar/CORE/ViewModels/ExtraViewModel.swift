@@ -30,9 +30,11 @@ class ExtraViewModel: ExtraViewModelType {
     // MARK: - Proprieties
     var allExtras = [ExtraCoffee]()
     var selectedSubExtras: ExtraCoffee?
+    var sessionManager : SessionManager
     
-    init() {
-        guard let extraCoffeArray = SessionManager.sharedInstance.extraCoffeArray else { return}
+    init(extraCoffeArray: [ExtraCoffee]?, sessionManager: SessionManager) {
+        self.sessionManager = sessionManager
+        guard let extraCoffeArray = extraCoffeArray else { return}
         
         allExtras = extraCoffeArray
     }
@@ -64,12 +66,12 @@ extension ExtraViewModel {
     
     // get the user's selection
     public func collectSelection() {
-        SessionManager.sharedInstance.extraCoffeSelected = []
+        sessionManager.extraCoffeSelected = []
         allExtras.forEach { extra in
             if (extra.subselections?.first(where: { subExtra in
                 subExtra.isSelected
             })) != nil {
-                SessionManager.sharedInstance.extraCoffeSelected?.append(extra)
+                sessionManager.extraCoffeSelected?.append(extra)
             }
         }
     }
